@@ -1,0 +1,5 @@
+x_domainname="domain_name"
+x_appname="app_name"
+x_dbname="db_name"
+x_username="db_usr"
+x_password="db_passwd"

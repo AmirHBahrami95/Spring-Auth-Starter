@@ -1,0 +1,7 @@
+{
+	"dataDir":"data",
+	"progname":"fuck-you-siree",
+	"protocol":"http",
+	"baseUrl":"localhost",
+	"port":8080
+}
