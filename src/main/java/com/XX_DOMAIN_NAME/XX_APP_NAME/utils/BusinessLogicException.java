@@ -1,4 +1,4 @@
-package XX_DOMAIN_NAME.XX_APP_NAME.app.utils;
+package XX_DOMAIN_NAME.XX_APP_NAME.utils;
 
 public class BusinessLogicException extends RuntimeException{
 	

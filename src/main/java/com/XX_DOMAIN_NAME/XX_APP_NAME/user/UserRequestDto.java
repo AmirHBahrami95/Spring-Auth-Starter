@@ -1,4 +1,4 @@
-package XX_DOMAIN_NAME.XX_APP_NAME.app.user;
+package XX_DOMAIN_NAME.XX_APP_NAME.user;
 
 // TODO add "validate()" or @Validator support (ffs)
 public class UserRequestDto {

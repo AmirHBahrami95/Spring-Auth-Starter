@@ -1,4 +1,4 @@
-package XX_DOMAIN_NAME.XX_APP_NAME.app.config;
+package XX_DOMAIN_NAME.XX_APP_NAME.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -7,7 +7,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AnonymousAuthenticationFilter;
 
-import XX_DOMAIN_NAME.XX_APP_NAME.app.filters.TokenAuthFilter;
+import XX_DOMAIN_NAME.XX_APP_NAME.filters.TokenAuthFilter;
 
 @Configuration
 public class SecurityConfig {

@@ -1,4 +1,4 @@
-# this script initializes a new microservice application with correct names ready 
+# this script initializes a new spring application with correct names ready 
 # to be deployed with {config,discovery,gateway}-services (along with anything new)
 # having changed their appname and db creds for the new environment
 
@@ -20,13 +20,12 @@ else
 	
 	# inline editing everything
 	# grep -Hnre "XX_APP" | awk '{print $1}' | awk 'BEGIN{FS=":";} {print "./" $1}' | uniq
-	grep --color=NEVER -Hr "XX_DOMAIN_NAME" | awk '{print $1}' | awk 'BEGIN{FS=":";} {print "./" $1}' | uniq | xargs sed -i "s/XX_DOMAIN_NAME/$x_domainname/g"
+	# TODO 'com.' in com.$x_domainname should be dealt with in a healthy way! (or not, who gives a fuck)
+	grep --color=NEVER -Hr "XX_DOMAIN_NAME" | awk '{print $1}' | awk 'BEGIN{FS=":";} {print "./" $1}' | uniq | xargs sed -i "s/XX_DOMAIN_NAME/com.$x_domainname/g"
 	grep --color=NEVER -Hr "XX_APP_NAME" | awk '{print $1}' | awk 'BEGIN{FS=":";} {print "./" $1}' | uniq | xargs sed -i "s/XX_APP_NAME/$x_appname/g"
 	grep --color=NEVER -Hr "XX_APP_USERNAME" | awk '{print $1}' | awk 'BEGIN{FS=":";} {print "./" $1}' | uniq | xargs sed -i "s/XX_APP_USERNAME/$x_username/g"
 	grep --color=NEVER -Hr "XX_APP_PASSWORD" | awk '{print $1}' | awk 'BEGIN{FS=":";} {print "./" $1}' | uniq | xargs sed -i "s/XX_APP_PASSWORD/$x_password/g"
 	grep --color=NEVER -Hr "XX_APP_DBNAME" | awk '{print $1}' | awk 'BEGIN{FS=":";} {print "./" $1}' | uniq | xargs sed -i "s/XX_APP_DBNAME/$x_dbname/g"
-	
-
 
 	# changing app directory 
 	dirs=$(find . -name \*XX_APP_NAME\* | xargs realpath )
@@ -41,7 +40,6 @@ else
 		destname=$(echo $d| sed "s/XX_DOMAIN_NAME/$x_domainname/")
 		mv $d $destname
 	done
-
 	
 	# cleaning
 	rm -rf z_change_name.sh

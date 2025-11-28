@@ -1,4 +1,4 @@
-package XX_DOMAIN_NAME.XX_APP_NAME.app.utils;
+package XX_DOMAIN_NAME.XX_APP_NAME.utils;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

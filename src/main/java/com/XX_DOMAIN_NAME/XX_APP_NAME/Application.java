@@ -1,4 +1,4 @@
-package XX_DOMAIN_NAME.XX_APP_NAME.app;
+package XX_DOMAIN_NAME.XX_APP_NAME;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

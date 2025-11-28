@@ -1,4 +1,4 @@
-package XX_DOMAIN_NAME.XX_APP_NAME.app.user;
+package XX_DOMAIN_NAME.XX_APP_NAME.user;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
