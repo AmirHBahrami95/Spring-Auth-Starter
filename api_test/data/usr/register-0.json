@@ -1,7 +1,16 @@
-{
-	"uname":"mr-test-0",
+{	
+	"uname":"this-is-a-test-0",
 	"passw":"iamtest0",
-	"lname":"test-0",
-	"fname":"mr",
-	"email":"mr-test0@gmail.com"
+	"personalInfo":{
+		"email":"mr-test0@gmail.com",
+		"lname":"zero",
+		"fname":"mister",
+		"birthDate":"2001-01-02",
+		"address":{
+			"countryIso2":"RU",
+			"state":"Moscow-Bullshit",
+			"city":"Veliki_Soorakh",
+			"local":"greate soviet prostitutes street number 69" 
+		}
+	}
 }

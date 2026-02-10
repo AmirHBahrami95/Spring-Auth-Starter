@@ -1,6 +1,6 @@
 {
 	"dataDir":"data",
-	"progname":"fuck-you-siree",
+	"progname":"XX_APP_NAME",
 	"protocol":"http",
 	"baseUrl":"localhost",
 	"port":8080

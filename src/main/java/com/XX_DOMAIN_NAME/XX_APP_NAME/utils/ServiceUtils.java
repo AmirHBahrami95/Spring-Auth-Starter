@@ -1,4 +1,4 @@
-package XX_DOMAIN_NAME.XX_APP_NAME.utils;
+package com.XX_DOMAIN_NAME.XX_APP_NAME.utils;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

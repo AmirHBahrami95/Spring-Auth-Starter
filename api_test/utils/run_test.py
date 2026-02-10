@@ -3,6 +3,7 @@ import requests as reqs
 import json
 from .file_utils import * 
 
+# TODO add dumpDir support
 def runTest(title,url,method='get',expected=200,headers=None,dataPath=None,data=None,dumpPath=None,useDefaults=True,bearer=None,dumpBearer=True):
 
 	""" 
@@ -72,7 +73,7 @@ def runTest(title,url,method='get',expected=200,headers=None,dataPath=None,data=
 			headers={} # avoiding problems
 		if bearer:
 			bearerPath=bearer # for dumping it later
-			bearer=readJsonF(f"{settings['dataDir']}{os.sep}{bearer}")['token']
+			bearer=readJsonF(f"{settings['dataDir']}{os.sep}{bearer}")['accessToken']
 			headers['Authorization']=f"Bearer {bearer}"
 	
 	"""
@@ -102,6 +103,7 @@ def runTest(title,url,method='get',expected=200,headers=None,dataPath=None,data=
 		except:
 			print("could not produce JSON output")
 	elif dumpPath!=None and dumpPath!= '-':
+		mkdirP(dumpPath)
 		output=obj=response.json()
 		if dumpBearer and bearer!=None:
 			output['bearer']=bearerPath

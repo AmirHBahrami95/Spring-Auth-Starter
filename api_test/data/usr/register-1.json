@@ -1,7 +1,16 @@
 {
-	"uname":"mr-test-1",
+	"uname":"this-is-a-test-1",
 	"passw":"iamtest1",
-	"lname":"test-1",
-	"fname":"mr",
-	"email":"mr-test1@gmail.com"
+	"personalInfo":{
+		"email":"mr-test1@gmail.com",
+		"lname":"one",
+		"fname":"mister",
+		"birthDate":"2000-02-18",
+		"address":{
+			"countryIso2":"DE",
+			"state":"Niedersachsen",
+			"city":"Goslar",
+			"local":"Am Suckmy-ass strasse 14."
+		}
+	}
 }

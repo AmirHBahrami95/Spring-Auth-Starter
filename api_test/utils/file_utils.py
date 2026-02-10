@@ -1,5 +1,21 @@
 import json
 import os
+ 
+def mkdirP(path):
+	""" 
+	mkdirs'es the path, but if the last part of the path lacks '/' 	
+	treats it as a file and does therefore NOT create the path.
+	"""
+
+	destDir=(path.split('/'))
+	if not path.endswith('/'):
+		destDir=destDir[:-1]
+	destPath='./'+str.join('/',destDir)
+	try:
+		os.makedirs(destPath)
+	except:
+		# print(f"cannot make path:{destPath}")
+		pass
 
 def writeJsonF(obj,path):
 	with open(path,'w') as fout:
@@ -35,4 +51,13 @@ def delJsonResource(resource):
 	try:
 		os.remove(f"{settings['dataDir']}{os.sep}{resource}")
 	except:
-		print(f"could not delete {settings['dataDir']}{os.sep}{resource}")
+		# print(f"could not delete {settings['dataDir']}{os.sep}{resource}")
+		pass
+
+def cleanFiles(dir,fileFormats,n=10):
+	""" any json file with {dir}/{fileFormat}-{0..n} will be deleted. fileFormats is 
+	an array of what files you need deleted. """
+	if cleanFiles:
+		for i in range(n):
+			for ff in fileFormats:
+				delJsonResource(f"{dir}/{ff}-{i}")

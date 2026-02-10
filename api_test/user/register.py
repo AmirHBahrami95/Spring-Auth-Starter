@@ -1,7 +1,8 @@
 import utils
+import user.typicals as tps
 runTest=utils.runTest
 
-def register(n=0):
+def register(n=0,log=False,saveDir="usr"):
 
 	""" 
 		register users for testing and save their data to
@@ -11,154 +12,161 @@ def register(n=0):
 		call user.cleanup() to reset the fuckery that have been
 		done during this session
 	"""
-
-	data=dict()
-	data['uname']=f"mr-test-{n}"
-	data['passw']=f"iamtest{n}"
-	data['fname']=f"mr-{n}"
-	data['lname']=f"test-{n}"
-	data['email']=f"mr-test{n}@gmail.com"
-
+	
+	# might happen (if u're a prick)
+	if n<0:
+		n=0
+	
+	if log:
+		print(f"sending : {data}")
+		# print(f"writing to {saveDir}/usr-{n}.json")
+	
 	runTest(
 		title=f"register-{n}",
 		expected=200,
-		url='user/register',
+		url='auth/register',
 		method='post',
-		data=data,
+		data=tps.getTypicalRegister(n),
 		headers={"content-type":"application/json"},
-		dumpPath=f"usr/usr-{n}.json"
+		dumpPath=f"{saveDir}/usr-{n}.json"
 	)
 
-def register_dups():
+def dups():
 	runTest(
 		title='register_dups',
 		expected=400,
-		url='user/register',
+		url='auth/register',
 		method='post',
-		dataPath='usr/register-0.json',
+		#dataPath='usr/register-0.json',
+		data=tps.getTypicalRegister(0),
 		headers={"content-type":"application/json"}
 	)
 
-def register_with_uid():
+def with_uid():
+	# TODO test if with actual existing uid it still works or not 
 	registerJ=utils.getJsonResource('usr/register-0.json')
-	whoami=utils.getJsonResource('usr/whoami.json')
-	whoami['passw']=registerJ['passw']
+	r2=utils.getJsonResource('usr/usr-0.json')['user']
+	r2['passw']=registerJ['passw']
 	runTest(
 		title='register_with_uid',
 		expected=400,
-		url='user/register',
+		url='auth/register',
 		method='post',
-		data=whoami,
+		data=r2,
 		headers={"content-type":"application/json"},
 		# dumpPath='-'
 	)
 
-def register_fake_uid():	
+def fake_uid():	
 	r2=utils.getJsonResource('usr/register-1.json')
 	r2['id']='a4e2711d-1172-4723-b84f-271f445830f1'
 	runTest(
 		title='register_fake_uid',
 		expected=400,
-		url='user/register',
+		url='auth/register',
 		method='post',
 		data=r2,
 		# dumpPath='-',
 		headers={"content-type":"application/json"},
 	)
 
-def reg_no_passw():
+def no_passw():
 	r2=utils.getJsonResource('usr/register-1.json')
 	# r2['id']='a4e2711d-1172-4723-b84f-271f445830f1'
 	del r2['passw']
 	runTest(
 		title='register_no_passw',
 		expected=400,
-		url='user/register',
+		url='auth/register',
 		method='post',
 		data=r2,
 		headers={"content-type":"application/json"},
 	)
 
-def reg_no_email():
+def no_email():
 	r2=utils.getJsonResource('usr/register-1.json')
-	del r2['email']
+	del r2['personalInfo']['email']
 	runTest(
 		title='register_no_email',
 		expected=400,
-		url='user/register',
+		url='auth/register',
 		method='post',
 		data=r2,
-		dumpPath='-',
+		# dumpPath='-',
 		headers={"content-type":"application/json"},
 	)
 
-def reg_email_dups():
+def email_dups():
 	r1=utils.getJsonResource('usr/register-0.json')
 	r2=utils.getJsonResource('usr/register-1.json')
-	r2['email']=r1['email']
-	print(r2)
+	r2['personalInfo']['email']=r1['personalInfo']['email']
+	# print(r2)
 	runTest(
 		title='register_email_dups',
 		expected=400,
-		url='user/register',
+		url='auth/register',
 		method='post',
 		data=r2,
 		headers={"content-type":"application/json"},
-		dumpPath='-'
+		# dumpPath='-'
 	)
 
 	# "phone_no":""
 
-def reg_no_lname():
+def no_lname():
 	r2=utils.getJsonResource('usr/register-1.json')
-	del r2['lname']
+	del r2['personalInfo']['lname']
 	runTest(
 		title='register_no_lname',
 		expected=400,
-		url='user/register',
+		url='auth/register',
 		method='post',
 		data=r2,
 		headers={"content-type":"application/json"},
 		# dumpPath='-'
 	)
 
-def reg_no_fname():
+def no_fname():
 	r2=utils.getJsonResource('usr/register-1.json')
-	del r2['fname']
+	del r2['personalInfo']['fname']
 	runTest(
 		title='register_no_fname',
 		expected=400,
-		url='user/register',
+		url='auth/register',
 		method='post',
 		data=r2,
 		headers={"content-type":"application/json"},
 		# dumpPath='-'
 	)
 
-def reg_uname_dups():
+def uname_dups():
 	r1=utils.getJsonResource('usr/register-0.json')
 	r2=utils.getJsonResource('usr/register-1.json')
 	r2['uname']=r1['uname']
 	runTest(
 		title='register_uname_dups',
 		expected=400,
-		url='user/register',
+		url='auth/register',
 		method='post',
 		data=r2,
 		headers={"content-type":"application/json"},
 		# dumpPath='-'
 	)
 
-def reg_phone_provided():
-	r2=utils.getJsonResource('usr/register-1.json')
-	r2['phone_no']="+491781513772"
+def phone_provided():
+	r2=utils.getJsonResource('usr/register-0.json')
+	r2['uname']='this-is-a-test-nigga'
+	r2['personalInfo']['email']='ohhellnuhbro@gmail.com'
+	r2['personalInfo']['phoneNo']="+491781513772"
+	# print(f"sending:{r2}")
 	runTest(
 		title='register_phone_provided',
 		expected=200,
-		url='user/register',
+		url='auth/register',
 		method='post',
 		data=r2,
 		headers={"content-type":"application/json"},
 		# dumpPath='-'
 	)
+
 

@@ -1,6 +1,6 @@
-# this script initializes a new spring application with correct names ready 
-# to be deployed with {config,discovery,gateway}-services (along with anything new)
-# having changed their appname and db creds for the new environment
+# this script initializes a working spring application with jwt authentication,
+# ready to be developed, tested and deployed. it's a monolith but with a few 
+# tweaks you may be able to use it as a microservice, too!
 
 # reading creds
 source ./creds.sh
@@ -10,24 +10,46 @@ echo "x_appname: $x_appname"
 echo "x_dbname: $x_dbname"
 echo "x_username: $x_username"
 echo "x_password: $x_password"
+echo "x_keystore_password: $x_keystore_password"
 
 echo "do you confirm? (y/n)" 
 confirm=$(python3 -c "print(input())")
 
 if [[ "$confirm" == "n" || "$confirm" == "N" ]] ; then
-	echo "ok then. edit 'creds.sh' if you want"
+	echo "ok then; edit 'creds.sh' then run this script again."
 else 
-	
-	# inline editing everything
-	# grep -Hnre "XX_APP" | awk '{print $1}' | awk 'BEGIN{FS=":";} {print "./" $1}' | uniq
-	# TODO 'com.' in com.$x_domainname should be dealt with in a healthy way! (or not, who gives a fuck)
-	grep --color=NEVER -Hr "XX_DOMAIN_NAME" | awk '{print $1}' | awk 'BEGIN{FS=":";} {print "./" $1}' | uniq | xargs sed -i "s/XX_DOMAIN_NAME/com.$x_domainname/g"
-	grep --color=NEVER -Hr "XX_APP_NAME" | awk '{print $1}' | awk 'BEGIN{FS=":";} {print "./" $1}' | uniq | xargs sed -i "s/XX_APP_NAME/$x_appname/g"
-	grep --color=NEVER -Hr "XX_APP_USERNAME" | awk '{print $1}' | awk 'BEGIN{FS=":";} {print "./" $1}' | uniq | xargs sed -i "s/XX_APP_USERNAME/$x_username/g"
-	grep --color=NEVER -Hr "XX_APP_PASSWORD" | awk '{print $1}' | awk 'BEGIN{FS=":";} {print "./" $1}' | uniq | xargs sed -i "s/XX_APP_PASSWORD/$x_password/g"
-	grep --color=NEVER -Hr "XX_APP_DBNAME" | awk '{print $1}' | awk 'BEGIN{FS=":";} {print "./" $1}' | uniq | xargs sed -i "s/XX_APP_DBNAME/$x_dbname/g"
 
-	# changing app directory 
+	keytool -genkeypair \
+	  -keystore ./src/main/resources/jwt-keystore.jks \
+	  -alias client-cert \
+	  -keyalg RSA \
+	  -keysize 2048 \
+	  -validity 365 \
+	  -storepass $x_keystore_password \
+	  -keypass $x_keystore_password \
+	  -dname "CN=cn,OU=ou,O=o,L=l,ST=st,C=us" \
+	  -noprompt
+		
+	function changeName(){
+		grep --color=NEVER -HR "$1" 2>/dev/null | awk '{print $1}' | awk 'BEGIN{FS=":";} {print "./" $1}' | uniq | xargs sed -i "s/$1/$2/g"
+	}
+	
+	# replacing package names
+	changeName XX_DOMAIN_NAME $x_domainname
+	changeName XX_APP_NAME $x_appname
+
+	# doing the same with pom.xml (didn't work with changeName)
+	sed -i "s/XX_DOMAIN_NAME/$x_domainname/g" pom.xml
+
+	# replacing db creds
+	changeName XX_APP_DBNAME $x_dbname
+	changeName XX_APP_USERNAME $x_username
+	changeName XX_APP_PASSWORD $x_password
+	
+	# replacing keystore password
+	changeName XX_KEYSTORE_PASSWORD $x_keystore_password
+
+	# changing app directory
 	dirs=$(find . -name \*XX_APP_NAME\* | xargs realpath )
 	for d in $dirs; do
 		destname=$(echo $d| sed "s/XX_APP_NAME/$x_appname/")
@@ -42,8 +64,24 @@ else
 	done
 	
 	# cleaning
-	rm -rf z_change_name.sh
-	rm -rf creds.sh
+	rm -f z_change_name.sh
+	rm -f creds.sh
 	rm -rf .git
+
+	# some advice for after the mess
+	echo
+	echo "some followup things to do for the app to run:"
+	echo "1. install redis (optionally change it's credentials in application.properties)"
+	echo "2. install mariadb (optionally install an alternative but change change the driver and db path in application.properties)"
+	echo "3. launch the database and execute the init_db.sql ('source [path/to/script]' command in mariadb)"
+	echo "4. integrate project lombok in your IDE or set it up with maven"
+	echo "5. run the spring boot application"
+	echo "6. cd 'api_test'"
+	echo "7. read the '__init__.py' file"
+	echo "8. if you are impatient, just 'python3 .'  while inside the 'api_test' directory"
+	echo
+	echo "*9. DON'T FORGET TO initialize this directory as a git repository!"
+	echo
+	echo "--cheers!"
 
 fi

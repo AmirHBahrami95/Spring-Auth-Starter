@@ -1,6 +1,8 @@
-package XX_DOMAIN_NAME.XX_APP_NAME.utils;
+package com.XX_DOMAIN_NAME.XX_APP_NAME.utils;
 
 public class BusinessLogicException extends RuntimeException{
+	
+	private static final long serialVersionUID = 1L;
 	
 	private String userMessage;
 	private int code; // optional though
