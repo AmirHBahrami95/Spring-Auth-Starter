@@ -1,4 +1,4 @@
-package XX_DOMAIN_NAME.XX_APP_NAME.user;
+package com.XX_DOMAIN_NAME.XX_APP_NAME.user;
 
 import java.sql.Blob;
 import java.util.Collection;

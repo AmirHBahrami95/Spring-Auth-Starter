@@ -1,4 +1,4 @@
-package XX_DOMAIN_NAME.XX_APP_NAME.auth;
+package com.XX_DOMAIN_NAME.XX_APP_NAME.auth;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

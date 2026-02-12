@@ -1,4 +1,4 @@
-package XX_DOMAIN_NAME.XX_APP_NAME.user;
+package com.XX_DOMAIN_NAME.XX_APP_NAME.user;
 
 import java.util.HexFormat;
 import java.util.List;
@@ -15,7 +15,7 @@ import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import XX_DOMAIN_NAME.XX_APP_NAME.utils.BusinessLogicException;
+import com.XX_DOMAIN_NAME.XX_APP_NAME.utils.BusinessLogicException;
 
 @Service
 public class UserService implements UserDetailsManager {

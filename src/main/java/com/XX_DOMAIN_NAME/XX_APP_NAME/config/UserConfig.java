@@ -1,11 +1,11 @@
-package XX_DOMAIN_NAME.XX_APP_NAME.config;
+package com.XX_DOMAIN_NAME.XX_APP_NAME.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import XX_DOMAIN_NAME.XX_APP_NAME.user.UserService;
+import com.XX_DOMAIN_NAME.XX_APP_NAME.user.UserService;
 
 // why is this guy here?! doesn't matter, just leave it here (it works) 
 @Configuration

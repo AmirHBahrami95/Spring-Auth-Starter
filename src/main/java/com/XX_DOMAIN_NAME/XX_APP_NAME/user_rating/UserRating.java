@@ -1,4 +1,4 @@
-package XX_DOMAIN_NAME.XX_APP_NAME.user_rating;
+package com.XX_DOMAIN_NAME.XX_APP_NAME.user_rating;
 
 import jakarta.validation.ValidationException;
 import jakarta.validation.constraints.Max;
@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
-import XX_DOMAIN_NAME.XX_APP_NAME.user.User;
+import com.XX_DOMAIN_NAME.XX_APP_NAME.user.User;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

@@ -1,4 +1,4 @@
-package XX_DOMAIN_NAME.XX_APP_NAME.auth;
+package com.XX_DOMAIN_NAME.XX_APP_NAME.auth;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;

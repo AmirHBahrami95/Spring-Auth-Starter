@@ -1,4 +1,4 @@
-package XX_DOMAIN_NAME.XX_APP_NAME.filters;
+package com.XX_DOMAIN_NAME.XX_APP_NAME.filters;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -8,8 +8,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.stereotype.Component;
 
-import XX_DOMAIN_NAME.XX_APP_NAME.auth.TokenAuthentication;
-import XX_DOMAIN_NAME.XX_APP_NAME.auth.TokenAuthenticationManager;
+import com.XX_DOMAIN_NAME.XX_APP_NAME.auth.TokenAuthentication;
+import com.XX_DOMAIN_NAME.XX_APP_NAME.auth.TokenAuthenticationManager;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

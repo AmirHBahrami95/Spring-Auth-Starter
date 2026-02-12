@@ -1,4 +1,4 @@
-package XX_DOMAIN_NAME.XX_APP_NAME.auth;
+package com.XX_DOMAIN_NAME.XX_APP_NAME.auth;
 
 import java.util.Optional;
 
@@ -8,8 +8,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Component;
 
-import XX_DOMAIN_NAME.XX_APP_NAME.user.UserService;
-import XX_DOMAIN_NAME.XX_APP_NAME.user.UserToken;
+import com.XX_DOMAIN_NAME.XX_APP_NAME.user.UserService;
+import com.XX_DOMAIN_NAME.XX_APP_NAME.user.UserToken;
 
 /**
  * Simple token based authentication provider. Supports TokenAuthentication Objects

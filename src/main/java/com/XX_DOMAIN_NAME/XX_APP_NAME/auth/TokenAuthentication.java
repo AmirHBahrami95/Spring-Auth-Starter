@@ -1,11 +1,11 @@
-package XX_DOMAIN_NAME.XX_APP_NAME.auth;
+package com.XX_DOMAIN_NAME.XX_APP_NAME.auth;
 
 import java.util.Collection;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 
-import XX_DOMAIN_NAME.XX_APP_NAME.user.User;
+import com.XX_DOMAIN_NAME.XX_APP_NAME.user.User;
 
 /**
  * Simple Token Authentication. If user is null, the object is not authenticated, and 

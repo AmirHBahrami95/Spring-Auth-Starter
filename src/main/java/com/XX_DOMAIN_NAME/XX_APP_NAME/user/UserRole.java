@@ -1,4 +1,4 @@
-package XX_DOMAIN_NAME.XX_APP_NAME.user;
+package com.XX_DOMAIN_NAME.XX_APP_NAME.user;
 
 public enum UserRole {
   USER("ROLE_USER"),
